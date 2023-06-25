@@ -7,10 +7,10 @@ POC to demonstrate that:
 - There is an easy way to enforce jobs to not be random methods in a service, but actual Job units.
 
 # Contents
-- HangfireContext.Core contains:
-  - A filter that takes care of PerformContext initialization
+- `HangfireContext.Core` contains:
+  - A filter that takes care of `PerformContext` initialization
   - A base job implementation that enforces a certain contract, but also gives you the flexibility of getting a PerformContext
   - A background job manager abstraction that enforces people to use the base job implementation and its interfaces to schedule jobs
   - A custom job activator for Hangfire (WIP)
-- HangfireContext.Sample contains:
+- `HangfireContext.Sample` contains:
   - A concrete implementation of passing in a `userId` to a job using all the tools HangfireContext.Core provides. 

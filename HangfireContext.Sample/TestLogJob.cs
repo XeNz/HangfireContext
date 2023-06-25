@@ -17,5 +17,4 @@ public class TestLogJob : AsyncHangfireBackgroundJob<TestLogJobProps>,
         Console.WriteLine($"{args.ToLog} done by {User.GetValueOrDefault()}");
         return Task.CompletedTask;
     }
-
 }

@@ -7,10 +7,6 @@ public class UserFilterAttribute : JobFilterAttribute, IClientFilter
 {
     private readonly IUserResolver? _userResolver;
 
-    public UserFilterAttribute()
-    {
-    }
-
     public UserFilterAttribute(IServiceScopeFactory serviceScopeFactory)
     {
         var scope = serviceScopeFactory.CreateScope();
@@ -19,11 +15,12 @@ public class UserFilterAttribute : JobFilterAttribute, IClientFilter
 
     public void OnCreating(CreatingContext filterContext)
     {
-        if (_userResolver is null)
-            return;
+        var userId = _userResolver?.UserId;
 
-        var userId = _userResolver.UserId;
-        filterContext.SetJobParameter(JobConstants.User, userId);
+        if (userId.HasValue)
+        {
+            filterContext.SetJobParameter(JobConstants.User, userId.Value);
+        }
     }
 
     public void OnCreated(CreatedContext filterContext)

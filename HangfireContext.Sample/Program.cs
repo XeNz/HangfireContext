@@ -37,14 +37,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.MapPost("job",
     (IBackgroundJobManager manager, IBackgroundJobClient backgroundJobClient) =>
     {
-        // enqueue with own abstraction
+        // enqueue with own abstraction which enforces our IBackgroundJob interface
         var props = new TestLogJobProps("Log something");
         manager.EnqueueAsync<TestLogJob, TestLogJobProps>(props);
-        // enqueue with default hangfire abstraction
+        // or enqueue with default hangfire abstraction
         backgroundJobClient.Enqueue<TestLogJob>(job => job.ExecuteAsync(props));
         return Results.Ok();
     }).AddEndpointFilter(async (context, next) =>
